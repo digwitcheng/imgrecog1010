@@ -1,0 +1,4 @@
+See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityMipsDebugSharedLibraryProcessActivityMipsDebugSharedLibraryMainCpp/output.txt for all output for compileProcessActivityMipsDebugSharedLibraryProcessActivityMipsDebugSharedLibraryMainCpp.
+compiling ConComponent.cpp successful.
+
+Finished compileProcessActivityMipsDebugSharedLibraryProcessActivityMipsDebugSharedLibraryMainCpp, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityMipsDebugSharedLibraryProcessActivityMipsDebugSharedLibraryMainCpp/output.txt.

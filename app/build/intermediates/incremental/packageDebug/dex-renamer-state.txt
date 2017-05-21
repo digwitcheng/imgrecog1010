@@ -1,0 +1,4 @@
+#Sat May 20 15:59:22 CST 2017
+base.0=E\:\\MId0504_workhouse\\imgrecog1010\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=E\:\\MId0504_workhouse\\imgrecog1010\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

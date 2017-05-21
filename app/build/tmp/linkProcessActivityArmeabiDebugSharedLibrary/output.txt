@@ -1,0 +1,4 @@
+See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityArmeabiDebugSharedLibrary/output.txt for all output for linkProcessActivityArmeabiDebugSharedLibrary.
+linking libprocessActivity.so successful.
+
+Finished linkProcessActivityArmeabiDebugSharedLibrary, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityArmeabiDebugSharedLibrary/output.txt.

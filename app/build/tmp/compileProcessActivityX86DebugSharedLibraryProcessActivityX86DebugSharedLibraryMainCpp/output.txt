@@ -1,0 +1,4 @@
+See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityX86DebugSharedLibraryProcessActivityX86DebugSharedLibraryMainCpp/output.txt for all output for compileProcessActivityX86DebugSharedLibraryProcessActivityX86DebugSharedLibraryMainCpp.
+compiling ConComponent.cpp successful.
+
+Finished compileProcessActivityX86DebugSharedLibraryProcessActivityX86DebugSharedLibraryMainCpp, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityX86DebugSharedLibraryProcessActivityX86DebugSharedLibraryMainCpp/output.txt.

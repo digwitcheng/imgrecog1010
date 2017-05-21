@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud" >
+
+    <ImageView
+        android:id="@+id/imgView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
+        android:minHeight="15dp"
+         />
+
+    <ImageView
+        android:id="@+id/imgView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
+        android:minHeight="15dp"
+        android:layout_below="@+id/imgView1"
+        />
+
+    <ImageView
+        android:id="@+id/imgView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgView2"
+        />
+
+    <GridLayout
+        android:id="@+id/Linearproccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgView3"
+        android:rowCount="1" >
+    </GridLayout>
+
+    <EditText
+        android:id="@+id/tv_num"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Linearproccess"
+        android:digits="1234567890-#*" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="#55777777">
+
+        <Button
+            android:id="@+id/empty"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:onClick="sendMsg"
+            android:background="#00000000"
+            android:layout_centerInParent="true"
+            />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="sendMsg"
+            android:background="@layout/sms_btn"
+            android:layout_toLeftOf="@+id/empty"
+            android:layout_centerVertical="true"
+            />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="发短信"-->
+            <!--android:layout_below="@+id/button2"-->
+            <!--/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button3"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:onClick="callphone"-->
+            <!--android:background="@layout/phone_btn"-->
+            <!--android:layout_toRightOf="@+id/empty"-->
+            <!--android:layout_centerVertical="true"-->
+
+            <!--/>-->
+        <cn.hxc.imgrecognition.HXCButton
+            android:id="@+id/button3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="callphone"
+            android:background="@layout/phone_btn"
+            android:layout_toRightOf="@+id/empty"
+            android:layout_centerVertical="true"
+
+            >
+
+        </cn.hxc.imgrecognition.HXCButton>
+        <!--<Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button3"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="22dp"
+            android:layout_marginRight="36dp"
+            android:onClick="savePic"
+            android:text="保存图片" />-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

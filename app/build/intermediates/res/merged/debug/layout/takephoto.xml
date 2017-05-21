@@ -1,0 +1,116 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+        android:id="@+id/firstLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            android:id="@+id/btn_takephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@layout/btn_takephoto"
+            android:onClick="takepicture" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignBaseline="@+id/btn_takephoto"
+            android:onClick="comeBack"
+            android:background="#00000000"
+            android:text="取消"
+            android:textSize="20dp"
+            android:textColor="#eeffffff"
+            />
+
+        <TextView
+            android:id="@+id/textviewTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_takephoto"
+            android:layout_centerHorizontal="true"
+            android:text="请确保手机号码在框内"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/autofocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:onClick="autofocus"
+            android:text="聚焦"
+            android:visibility="gone" />
+
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" >
+
+        <View
+            android:id="@+id/leftLine"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#32CD32"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/rectView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="150dip"
+            android:background="@drawable/shape"
+            android:clickable="false"
+            android:enabled="false"
+            android:src="@drawable/rect5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" >
+
+        <View
+            android:id="@+id/rightLine"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#32CD32"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/nextlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="printRecognize"
+            android:text="印刷体识别" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:onClick="writeRecognize"
+            android:text="手写识别" />
+
+    </RelativeLayout>
+
+</FrameLayout>

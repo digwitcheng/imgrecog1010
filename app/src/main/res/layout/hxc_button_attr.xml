@@ -1,0 +1,14 @@
+<declare-styleable
+    android:name="CustomTitleBar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    <attr android:name="title_background_color" android:format="reference|integer" />
+    <attr android:name="button_visible" android:format="boolean" />
+    <attr android:name="title_text" android:format="string" />
+    <attr android:name="title_text_color" android:format="color" />
+    <attr android:name="title_text_drawable" android:format="reference|integer" />
+    <attr android:name="button_text" android:format="string" />
+    <attr android:name="button_text_color" android:format="color" />
+    <attr android:name="button_drawable" android:format="reference|integer" />
+</declare-styleable>

@@ -1,0 +1,4 @@
+See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityArmeabiDebugSharedLibraryProcessActivityArmeabiDebugSharedLibraryMainCpp/output.txt for all output for compileProcessActivityArmeabiDebugSharedLibraryProcessActivityArmeabiDebugSharedLibraryMainCpp.
+compiling ConComponent.cpp successful.
+
+Finished compileProcessActivityArmeabiDebugSharedLibraryProcessActivityArmeabiDebugSharedLibraryMainCpp, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityArmeabiDebugSharedLibraryProcessActivityArmeabiDebugSharedLibraryMainCpp/output.txt.
