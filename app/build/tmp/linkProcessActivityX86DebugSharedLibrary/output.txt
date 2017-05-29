@@ -1,4 +1,4 @@
-See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityX86DebugSharedLibrary/output.txt for all output for linkProcessActivityX86DebugSharedLibrary.
+See file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/linkProcessActivityX86DebugSharedLibrary/output.txt for all output for linkProcessActivityX86DebugSharedLibrary.
 linking libprocessActivity.so successful.
 
-Finished linkProcessActivityX86DebugSharedLibrary, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityX86DebugSharedLibrary/output.txt.
+Finished linkProcessActivityX86DebugSharedLibrary, see full log file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/linkProcessActivityX86DebugSharedLibrary/output.txt.

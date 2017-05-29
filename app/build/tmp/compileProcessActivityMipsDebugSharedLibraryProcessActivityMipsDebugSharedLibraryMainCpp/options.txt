@@ -31,10 +31,10 @@ c++
 -UNDEBUG
 -fno-omit-frame-pointer
 -fno-unswitch-loops
--IE:\\MId0504_workhouse\\imgrecog1010\\app\\src\\main\\jni
+-IE:\\MId0504_workhouse\\imgrecog0524otsu\\imgrecog1010\\app\\src\\main\\jni
 -DANDROID
 -fexceptions
 -frtti
 -I
-E:\\MId0504_workhouse\\imgrecog1010\\app\\src\\main\\headers
+E:\\MId0504_workhouse\\imgrecog0524otsu\\imgrecog1010\\app\\src\\main\\headers
 --sysroot=D:\\android\\android-ndk-r10/platforms/android-19/arch-mips

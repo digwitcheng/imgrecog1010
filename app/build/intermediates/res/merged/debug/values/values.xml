@@ -125,6 +125,7 @@
             <enum name="screen" value="15"/>
         </attr></declare-styleable>
     <declare-styleable name="DrawerArrowToggle"><attr format="color" name="color"/><attr format="boolean" name="spinBars"/><attr format="dimension" name="drawableSize"/><attr format="dimension" name="gapBetweenBars"/><attr format="dimension" name="arrowHeadLength"/><attr format="dimension" name="arrowShaftLength"/><attr format="dimension" name="barLength"/><attr format="dimension" name="thickness"/></declare-styleable>
+    <declare-styleable name="HXCButton"><attr format="reference|color" name="buttonBackground"/><attr format="dimension" name="buttonWidth"/><attr format="dimension" name="buttonHeight"/><attr format="string" name="buttonPosition"/><attr format="string" name="titleText"/><attr format="color" name="titleTextColor"/><attr format="dimension" name="titleTextSize"/></declare-styleable>
     <declare-styleable name="LinearLayoutCompat"><attr name="android:orientation"/><attr name="android:gravity"/><attr name="android:baselineAligned"/><attr name="android:baselineAlignedChildIndex"/><attr name="android:weightSum"/><attr format="boolean" name="measureWithLargestChild"/><attr name="divider"/><attr name="showDividers">
             <flag name="none" value="0"/>
             <flag name="beginning" value="1"/>

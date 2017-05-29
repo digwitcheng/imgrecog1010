@@ -1,4 +1,4 @@
-See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityMipsDebugSharedLibrary/output.txt for all output for linkProcessActivityMipsDebugSharedLibrary.
+See file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/linkProcessActivityMipsDebugSharedLibrary/output.txt for all output for linkProcessActivityMipsDebugSharedLibrary.
 linking libprocessActivity.so successful.
 
-Finished linkProcessActivityMipsDebugSharedLibrary, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/linkProcessActivityMipsDebugSharedLibrary/output.txt.
+Finished linkProcessActivityMipsDebugSharedLibrary, see full log file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/linkProcessActivityMipsDebugSharedLibrary/output.txt.

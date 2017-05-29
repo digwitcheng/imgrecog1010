@@ -17,7 +17,7 @@ extern "C" {
  * Signature: ([III)[I
  */
 JNIEXPORT jintArray JNICALL
-Java_cn_hxc_imgrecognition_processActivity_removeNoise(JNIEnv *env, jobject instance, jintArray by_,
+Java_cn_hxc_Activity_processActivity_removeNoise(JNIEnv *env, jobject instance, jintArray by_,
                                                        jint width, jint height);
 
 /*
@@ -27,9 +27,11 @@ Java_cn_hxc_imgrecognition_processActivity_removeNoise(JNIEnv *env, jobject inst
  */
 //JNIEXPORT jint JNICALL Java_cn_hxc_imgrecognition_processActivity_callint
 //  (JNIEnv *, jobject, jintArray, jint width, jint height,jstring num,jstring win2,jstring whi2,jint flag);
-JNIEXPORT jint JNICALL Java_cn_hxc_imgrecognition_processActivity_callint(
-        JNIEnv * env, jobject obj, jintArray by1_, jint width, jint height,
-        jstring num_, jstring win2_, jstring whi2_,jint flag);
+JNIEXPORT jint JNICALL Java_cn_hxc_Activity_processActivity_callint(
+        JNIEnv * env, jobject obj,jstring num_, jstring win2_, jstring whi2_,jint flag,jstring model_);
+
+JNIEXPORT jint JNICALL Java_cn_hxc_Activity_processActivity_Recognize(
+        JNIEnv * env, jobject obj, jintArray by1_, jint width, jint height,jint flag);
 
 #ifdef __cplusplus
 }

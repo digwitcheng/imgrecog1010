@@ -4,7 +4,7 @@ model {
     android {
         compileSdkVersion = 25
         buildToolsVersion = "25.0.1"
-        compileOptions.encoding="GBK"
+        compileOptions.encoding = "GBK"
 
         defaultConfig.with {
             applicationId = "cn.hxc.imgrecognition"
@@ -29,11 +29,14 @@ model {
             minifyEnabled = false
             proguardFiles.add(file("proguard-rules.pro"))
         }
+        debug{
+            minifyEnabled=false
+            debuggable=true
+        }
     }
 
 }
-
-dependencies {
+    dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\MId0504_workhouse\imgrecog1010\app\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\MId0504_workhouse\imgrecog1010\app\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\MId0504_workhouse\imgrecog0524otsu\imgrecog1010\app\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\MId0504_workhouse\imgrecog0524otsu\imgrecog1010\app\src\debug\shaders"/></dataSet></merger>

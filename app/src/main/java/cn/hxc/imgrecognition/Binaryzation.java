@@ -1,10 +1,15 @@
 package cn.hxc.imgrecognition;
 
+
+
 /**
  * Created by hxc on 2017/5/8.
  */
 
 public class Binaryzation {
+
+    public static int maxValue;
+    public  static int minValue;
     /*
     * 大津算法
     */
@@ -15,6 +20,8 @@ public class Binaryzation {
         int k; // various RES_COUNTers
         int n, n1, n2;
         double m1, m2, sum, csum, fmax, sb;
+        int max=Integer.MIN_VALUE;
+        int min=Integer.MAX_VALUE;
         // for (int i = 0; i < by.length; i++) {
         // int np = by[i];
         // ihist[np]++;
@@ -37,6 +44,20 @@ public class Binaryzation {
             sum += (double) k * (double) ihist[k]; // x*f(x) 质量矩
             n += ihist[k]; // f(x) 质量
         }
+        for (int i = 0; i < 256; i++) {
+            if(ihist[i]>0){
+                min=i;
+                break;
+            }
+        }
+        for (int i = 255; i >=0; i--) {
+            if(ihist[i]>0){
+                max=i;
+                break;
+            }
+        }
+        maxValue=max;
+        minValue=min;
         if (n == 0) {
             return (160);
         }

@@ -1,4 +1,4 @@
-See file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp/output.txt for all output for compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp.
-compiling ConComponent.cpp successful.
+See file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp/output.txt for all output for compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp.
+compiling svm.cpp successful.
 
-Finished compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp, see full log file:///E:/MId0504_workhouse/imgrecog1010/app/build/tmp/compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp/output.txt.
+Finished compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp, see full log file:///E:/MId0504_workhouse/imgrecog0524otsu/imgrecog1010/app/build/tmp/compileProcessActivityArmeabi-v7aDebugSharedLibraryProcessActivityArmeabi-v7aDebugSharedLibraryMainCpp/output.txt.
