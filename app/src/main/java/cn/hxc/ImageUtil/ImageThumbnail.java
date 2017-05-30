@@ -74,6 +74,18 @@ public class ImageThumbnail {
         return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);	
 		
 	}
+	public static  int[] pic8096(int []image,int width,int height){
+		int []newImage=new int[80*96];
+		for (int i = 0; i < newImage.length; i++) {
+			newImage[i]=0;
+		}
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				newImage[(i + 10) * 80 + j + 10] =255-image[i * width + j];
+			}
+		}
+		return image;
+	}
 //	}
 	
 }

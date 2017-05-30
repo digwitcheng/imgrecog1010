@@ -1,5 +1,6 @@
 package cn.hxc.imgrecognition;
 
+import android.graphics.Rect;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -40,7 +41,7 @@ public class RemoveNoise {
             return;
         }
         averW = averSum / averCount;
-
+        int interval = getAvrageInterval(sorta);
         for (int oldi = 0; oldi < count - 1; oldi++) {
             if (sorta[oldi * 7] != 0) {
                 continue;
@@ -60,7 +61,7 @@ public class RemoveNoise {
                 imageProcess.noequl("averW=", averW);
                 imageProcess.noequl("-------------------- ", i);
 
-                if (xw < averW && oldxw < averW && totalxw < averW * 2) {
+                if (xw < averW && oldxw < averW && totalxw < averW * 2&&internalX<interval) {
                     sorta[(i) * 7] = 1;
                     sorta[oldi * 7] = 0;
                     if (sorta[i * 7 + 2] > sorta[oldi * 7 + 2]) {
@@ -84,20 +85,35 @@ public class RemoveNoise {
 
     }
 
-    public void recoginzeRect(int[] a, int width, int height) {
+    public Rect RecoginzeRect(int[] a, int width, int height) {
+        //寻找上下左右边界
+        //TODO 去除无效的连通元
+        setComTrue(a,2/3,searchBorad(a));
+        setComTrue(a,1,searchBorad(a));
 
-        int minx = width;
-        int miny = height;
+        return searchBorad(a);
+    }
+   void  setComTrue(int[]a,float radio,Rect rect){
+        //把连通元高度三分之二在方框内的连通元设为可用
+        for (int i = 0; i < count; i++) {
+            int hei = (int) ((a[i * 7 + 4] - a[i * 7 + 3]) *radio);// 2 / 3;
+            if (a[i * 7 + 4] > rect.top + hei && a[i * 7 + 3] < rect.bottom - hei) {
+                a[i * 7] = 0;
+            }
+        }
+    }
+    Rect searchBorad(int []a){
+        int minx = Integer.MAX_VALUE;
+        int miny = Integer.MAX_VALUE;
         int maxx = 0;
         int maxy = 0;
-        //寻找上下左右边界
         for (int i = 0; i < count; i++) {
             if (a[i * 7] == 0) {
                 if (a[i * 7 + 1] < minx) {
                     minx = a[i * 7 + 1];
                 }
                 if (a[i * 7 + 2] > maxx) {
-                    maxx = a[i * 7 + 1];
+                    maxx = a[i * 7 + 2];
                 }
                 if (a[i * 7 + 3] < miny) {
                     miny = a[i * 7 + 3];
@@ -107,14 +123,53 @@ public class RemoveNoise {
                 }
             }
         }
+        if (miny > maxy || minx > maxx) {
+            return null;
+        }
+        return new Rect(minx, miny, maxx, maxy);
+    }
+
+    public void PreRecoginzeRect(int[] a, int width, int height) {
+        //去除太高的噪音，避免下一步确定识别框时过大
+        //   removeMaxNoise(a, width, height);
+
+        //寻找上下左右边界
+        int minx = width;
+        int miny = height;
+        int maxx = 0;
+        int maxy = 0;
+        int sumMiny = 0;
+        int sumMaxy = 0;
+        int sumCount = 0;
+        for (int i = 0; i < count; i++) {
+            if (a[i * 7] == 0) {
+                sumMiny += a[i * 7 + 3];
+                sumMaxy += a[i * 7 + 4];
+                sumCount++;
+            }
+        }
+        if (sumCount == 0) {
+            return;
+        }
+        miny = sumMiny / sumCount;
+        maxy = sumMaxy / sumCount;
         if (minx > maxx || miny > maxy) {
             return;
         }
+        //把在方框内的连通元设为可用
         for (int i = 0; i < count; i++) {
             if (a[i * 7 + 1] >= minx - 1 && a[i * 7 + 2] <= maxx + 1 && a[i * 7 + 3] >= miny - 1 && a[i * 7 + 4] <= maxy + 1) {
                 a[i * 7] = 0;
             }
         }
+        //把连通元三分之一在方框内的连通元设为可用
+        setComTrue(a,1/3,searchBorad(a));
+//        for (int i = 0; i < count; i++) {
+//            int hei = (a[i * 7 + 4] - a[i * 7 + 3]) / 3;
+//            if (a[i * 7 + 4] > miny + hei && a[i * 7 + 3] < maxy - hei) {
+//                a[i * 7] = 0;
+//            }
+//        }
     }
 
 
@@ -139,10 +194,10 @@ public class RemoveNoise {
 
         for (int i = 0; i < count; i++) {
             if (a[i * 7] == 0) {
-                if (Math.abs(a[i * 7 + 2] - a[i * 7 + 1]) >= avrageHeight * 4 / 3) {
+                if (Math.abs(a[i * 7 + 2] - a[i * 7 + 1]) >= avrageHeight * 2) {
                     a[i * 7] = 1;
                 }
-                if ((Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) >= avrageHeight * 4 / 3)) {
+                if ((Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) >= avrageHeight * 2)) {
                     a[i * 7] = 1;
                 }
             }
@@ -246,9 +301,9 @@ public class RemoveNoise {
 
             }
         }
-        if(arrayHeight.size()>=1){
-            for (int i = arrayHeight.size()/3; i <=arrayHeight.size()*2/3; i++) {
-                sumHeight+=arrayHeight.get(i);
+        if (arrayHeight.size() >= 1) {
+            for (int i = arrayHeight.size() / 3; i <= arrayHeight.size() * 2 / 3; i++) {
+                sumHeight += arrayHeight.get(i);
                 countHeight++;
             }
         }
@@ -386,6 +441,48 @@ public class RemoveNoise {
         //********测试代码结束************//
     }
 
+    //根据过度行分割，确定所需要的连通元
+    public void RestoreComBasedRect(int[] a, int width, int height) {
+        //********测试代码***************//
+        int countHeight1 = 0;
+        for (int i = 0; i < count; i++) {
+            if (a[i * 7] == 0) {
+                countHeight1++;
+            }
+        }
+        imageProcess.noequl("", 1);
+        //********测试代码结束************//
+
+
+//        //把所有的连通元都设为不可用
+//        int countNum = 0;
+//        for (int i = 0; i < count; i++) {
+//            if (a[i * 7] == 0) {
+//                countNum++;
+//            }
+//            a[i * 7] = 1;
+//        }
+        //
+        for (int i = 0; i < count; i++) {
+            int hei = (a[i * 7 + 4] - a[i * 7 + 3]) / 3;
+            if (a[i * 7 + 4] > iTop + hei && a[i * 7 + 3] < iBottom - hei) {
+                a[i * 7] = 0;
+            }
+        }
+
+        //********测试代码***************//
+        int countHeight = 0;
+        for (int i = 0; i < count; i++) {
+            if (a[i * 7] == 0) {
+                countHeight++;
+            }
+        }
+        imageProcess.noequl("", 1);
+        //********测试代码结束************//
+
+    }
+
+
     //号码行预提取
     public int PreSegment_Line_hxc(int[] proImage, int width, int height) {
         //TODO 行分割hxc
@@ -456,12 +553,12 @@ public class RemoveNoise {
 //            iBottom=lines.get(0).getBottom();
             iTop = midLine.getTop();
             iBottom = midLine.getBottom();
-            if (iBottom - iTop > 0) {
+            if (iBottom - iTop >= 0) {
                 for (int i = 0; i < iTop; i++) {
                     for (int j = 0; j < width; j++)
                         proImage[i * width + j] = 255;
                 }
-                for (int i = iBottom; i < height; i++) {
+                for (int i = iBottom + 1; i < height; i++) {
                     for (int j = 0; j < width; j++)
                         proImage[i * width + j] = 255;
                 }
@@ -599,30 +696,30 @@ public class RemoveNoise {
          */
     }
 
-    /**
-     * 移除比较大的或比较小的前景像素
-     *
-     * @param a      原图像
-     * @param width
-     * @param height
-     * @param id
-     */
-    public void removeMaxMinNoise(int[] a, int width, int height, int id) {
-        for (int i = 0; i < count; i++) {
-            if (a[i * 7] == 0) {
-                if (Math.abs(a[i * 7 + 2] - a[i * 7 + 1]) >= 3 * height) {
-                    a[i * 7] = 1;
-                }
-                if (Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) >= 3 * height) {
-                    a[i * 7] = 1;
-                }
-                if (Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) < height / 2) {
-                    a[i * 7] = 1;
-                }
-            }
-        }
-
-    }
+//    /**
+//     * 移除比较大的或比较小的前景像素
+//     *
+//     * @param a      原图像
+//     * @param width
+//     * @param height
+//     * @param id
+//     */
+//    public void removeMaxMinNoise(int[] a, int width, int height, int id) {
+//        for (int i = 0; i < count; i++) {
+//            if (a[i * 7] == 0) {
+//                if (Math.abs(a[i * 7 + 2] - a[i * 7 + 1]) >= 3 * height) {
+//                    a[i * 7] = 1;
+//                }
+//                if (Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) >= 3 * height) {
+//                    a[i * 7] = 1;
+//                }
+//                if (Math.abs(a[i * 7 + 4] - a[i * 7 + 3]) < height / 2) {
+//                    a[i * 7] = 1;
+//                }
+//            }
+//        }
+//
+//    }
 
     public void initTopBottom() {
         iTop = 0;
@@ -731,26 +828,28 @@ public class RemoveNoise {
         int interval = getAvrageInterval(sorta);
 
 
-
         if (interval < 0) {
             interval = iBottom - iTop;
         }
         int count_num1 = 0;
+        int k = 0;
         for (int i = 0; i < count; i++) {
             if (sorta[i * 7] == 0) {
                 count_num1++;
+                k = i;
             }
         }
         if (count_num1 == 0) {
             return;
         }
-        forword = count_num1 / 2;
-        back = count_num1 / 2;
+        forword = k / 2;
+        back = k / 2;
 
-        int radio=2;
-        while(back-forword<4&&radio<6) {
-            forword = count_num1 / 2;
-            back = count_num1 / 2;
+        int radio = 2;
+        while (back - forword <= 4 && radio < 5) {
+            radio++;
+            forword = k / 2;
+            back = k / 2;
             for (int p = forword; p >= 0; p--) {
                 if (sorta[p * 7] == 0) {
                     int q = p - 1;
@@ -762,14 +861,17 @@ public class RemoveNoise {
                         }
                     }
                     if (flag == true) {
-                        imageProcess.noequl("avrageHeight loop ", interval);
+                        imageProcess.noequl("interval ", interval);
                         imageProcess.noequl("sorta[p * 7 + 1] - sorta[q * 7 + 2] ", sorta[p * 7 + 1] - sorta[q * 7 + 2]);
-                        if (sorta[p * 7 + 1] - sorta[q * 7 + 2] > interval*radio) {
-                            forword = p;
+                        if (sorta[p * 7 + 1] - sorta[q * 7 + 2] > interval * radio) {
                             break;
                         }
+                        forword = q;
                     } else {
-                        forword = p;
+                        if (sorta[forword * 7 + 1] - sorta[p * 7 + 2] < interval * radio) {
+                            forword = p;
+                        }
+
                         // imageProcess.noequl("forword mei you le ", p);
                         break;
                     }
@@ -788,14 +890,15 @@ public class RemoveNoise {
                     }
                     if (flag == true) {
                         imageProcess.noequl("back ----ssorta[q * 7 + 1] - sorta[p * 7 + 2] ", sorta[q * 7 + 1] - sorta[p * 7 + 2]);
-                        if (sorta[q * 7 + 1] - sorta[p * 7 + 2] > interval*radio) {
-                            back = p;
+                        if (sorta[q * 7 + 1] - sorta[p * 7 + 2] > interval * radio) {
                             // imageProcess.noequl("break back ", p);
                             break;
                         }
+                        back = q;
                     } else {
-                        // imageProcess.noequl("back mei you le ", p);
-                        back = p;
+                        if (sorta[p * 7 + 1] - sorta[back * 7 + 2] < interval * radio) {
+                            back = p;
+                        }
                         break;
                     }
                 }
@@ -813,7 +916,7 @@ public class RemoveNoise {
             }
         }
         imageProcess.noequl("", 1);
-        removeMaxMinNoise(sorta, width, avrageHeight, id);
+        //  removeMaxMinNoise(sorta, width, avrageHeight, id);
         int count_num1 = 0;
         for (int i = 0; i < count; i++) {
             if (sorta[i * 7] == 0) {
@@ -821,21 +924,25 @@ public class RemoveNoise {
             }
         }
         getAvrageHeight(sorta);
-
+        imageProcess.noequl("avrageHeight=", avrageHeight);
         for (int i = 0; i < count; i++) {
             if (sorta[i * 7] == 0) {
                 //宽
-                if (Math.abs(sorta[i * 7 + 2] - sorta[i * 7 + 1]) >= avrageHeight) {
+                int w = Math.abs(sorta[i * 7 + 2] - sorta[i * 7 + 1]);
+                int h = Math.abs(sorta[i * 7 + 4] - sorta[i * 7 + 3]);
+                imageProcess.noequl("w =" + w + "  h=", h);
+                imageProcess.noequl("------------------------minx=", sorta[i * 7 + 1]);
+                if (w >= avrageHeight*5/4) {
                     sorta[i * 7] = 1;
                 }
-                if ((Math.abs(sorta[i * 7 + 2] - sorta[i * 7 + 1]) < 3)) {
+                if (w < 3) {
                     sorta[i * 7] = 1;
                 }
                 //高
-                if ((Math.abs(sorta[i * 7 + 4] - sorta[i * 7 + 3]) > avrageHeight * 5 / 4)) {
+                if (h > avrageHeight * 5 / 4) {
                     sorta[i * 7] = 1;
                 }
-                if ((Math.abs(sorta[i * 7 + 4] - sorta[i * 7 + 3]) < avrageHeight * 3 / 4)) {
+                if (h < avrageHeight * 3 / 4) {
                     sorta[i * 7] = 1;
                 }
             }
@@ -851,27 +958,26 @@ public class RemoveNoise {
     }
 
     public void removeLine(int[] by, int[] pixels, int width, int height, int id) {
-//        //排除竖直长线
-//        int max=0;
-//        for (int i = width-1; i >0; i--) {
-//            int len = 0;
-//            for (int j = 0; j < height; j++) {
-//                if (by[i * height + j] != 255) {
-//                    len++;
-//                }
-//            }
-//            if(max<len){
-//                max=len;
-//            }
-//            if(len>=height-1){
-//                for (int j = 0; j < height; j++) {
-//                    by[i * height + j] = 255;
-//                    int gray = 255;
-//                    int newcolor = (gray << 16) | (gray << 8) | (gray);
-//                    pixels[i * height + j] = newcolor;
-//                }
-//            }
-//        }
+        //排除竖直长线
+        int count = 0;
+        for (int i = 0; i<width; i++) {
+            int len = 0;
+            for (int j = 0; j < height; j++) {
+                if (by[j * width + i] != 255) {
+                    len++;
+                }
+            }
+            if (len >= height-2) {
+                count++;
+                for (int jj = 0; jj < height; jj++) {
+                    by[jj * width + i] = 255;
+                    int gray = 255;
+                    int newcolor = (gray << 16) | (gray << 8) | (gray);
+                    pixels[jj * width + i] = newcolor;
+                }
+            }
+        }
+
 
         //排除水平长线
         int level = 3 * height / 4;// 55-id*10;

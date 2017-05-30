@@ -86,8 +86,8 @@ public class MainActivity extends Activity implements OnTouchListener {
 		editor.putFloat("zoom", 1);
 		editor.commit();
 
-		Intent intent = new Intent(this, processActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(this, processActivity.class);
+//		startActivity(intent);
 
 	}
 

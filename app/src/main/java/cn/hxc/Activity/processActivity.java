@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -300,16 +301,26 @@ public class processActivity extends Activity {
 
         //根据过度行分割，确定所需要的连通元
         processUtil.RestoreCom(a, by1, width, height);
-        //去除太高的噪音，避免下一步确定识别框时过大
-        processUtil.removeMaxNoise(a, width, height);
         //确定识别框,恢复同一个字符上下断开的，不在中间线上的部分
-        processUtil.recoginzeRect(a, width, height);
+        processUtil.PreRecoginzeRect(a, width, height);
+        //去除非常高的连通元
+        processUtil.removeMaxNoise(a, width, height);
+
+        //再次确定识别框
+        Rect recongizeRect= processUtil.RecoginzeRect(a,width,height);
+
+
 
 
         //显示灰度图
         greyBitmap1 = Bitmap.createBitmap(width, height, Config.RGB_565);
         greyBitmap1.setPixels(pixels, 0, width, 0, 0, width, height);
-        iv_2.setImageBitmap(greyBitmap1);
+
+        Bitmap bitmap= drawRectangle(greyBitmap1,recongizeRect);
+        Rect rect2=new Rect(0,processUtil.iTop,width,processUtil.iBottom);
+        Bitmap bitmap2=drawRectangle(bitmap,rect2);
+        iv_2.setImageBitmap(bitmap2);
+
 
 //			//显示除去非中间行的像素
 //			int numPixels[] = new int[width * height];
@@ -327,9 +338,9 @@ public class processActivity extends Activity {
 //					numPixels[p * width + q] = newcolor;
 //				}
 //			}
-//			greyBitmap1 = Bitmap.createBitmap(width, height, Config.RGB_565);
-//			greyBitmap1.setPixels(pixels, 0, width, 0, 0, width, height);
-//			iv_2.setImageBitmap(greyBitmap1);
+//		    Bitmap	greyBitmap = Bitmap.createBitmap(width, height, Config.RGB_565);
+//			greyBitmap.setPixels(by1, 0, width, 0, 0, width, height);
+//			iv_2.setImageBitmap(greyBitmap);
 
         sorta = new int[a.length];
         count = a.length / 7;
@@ -347,11 +358,24 @@ public class processActivity extends Activity {
 //		processUtil.CombainOne_jing(sorta,width,height);
 //		//TODO //对过大连通元重新进行处理
         //TODO 排除水平垂直长线
-      processUtil.removeBasedOnBouttomTop(sorta, width, height, id);
+     processUtil.removeBasedOnBouttomTop(sorta, width, height, id);
       processUtil.initForwordAndBack(sorta);
 
 
 
+    }
+
+    private Bitmap drawRectangle(Bitmap greyBitmap1, Rect recongizeRect) {
+        Bitmap bitmap=Bitmap.createBitmap(greyBitmap1);
+        Canvas canvas=new Canvas(bitmap);
+        Paint paint=new Paint();
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
+        canvas.drawRect(recongizeRect,paint);
+
+
+        return bitmap;
     }
 
 
@@ -360,7 +384,6 @@ public class processActivity extends Activity {
 	 */
 
     public void recoginze() throws IOException {
-        ArrayList<Integer> alignHeight = new ArrayList<Integer>();
         ArrayList<Integer> alignHightVaule = new ArrayList<Integer>();
         GridLayout gridlaout = (GridLayout) findViewById(R.id.Linearproccess);
         // ArrayList<Integer> numList=new ArrayList<Integer>();
@@ -391,7 +414,7 @@ public class processActivity extends Activity {
                 int[] numPixels = new int[numWidth * numHeight];
                 // 数组过大，内存溢出
                 numBitmap.getPixels(numPixels, 0, numWidth, 0, 0, numWidth, numHeight);
-                int[] by1 = new int[numWidth * numHeight];
+                int[] image = new int[numWidth * numHeight];
                 // int[] by1 = new int[width * height];
                 int pixButoom = 0;
                 int pixH = 0;
@@ -401,9 +424,9 @@ public class processActivity extends Activity {
                     for (int rw = 0; rw < numWidth; rw++) {
                         int temp = (0xff & numPixels[rh * numWidth + rw]);
                         if (temp > 126) {
-                            by1[rh * numWidth + rw] = 0;
+                            image[rh * numWidth + rw] = 0;
                         } else {
-                            by1[rh * numWidth + rw] = 255;
+                            image[rh * numWidth + rw] = 255;
                             if (rh == numHeight - 2) {
                                 pixButoom++;
                             }
@@ -429,7 +452,8 @@ public class processActivity extends Activity {
 //                    num = 1;
 //                    // Toast.makeText(this, "1", 1).show();
 //                } else {
-                    num = Recognize(by1, numWidth, numHeight, 0);
+
+                    num = Recognize(image,numWidth,numHeight, 0);
                     if (percent > 0.55) {
                         if (num == 5) {
                             if (pix3 < numHeight / 2) {
@@ -467,7 +491,6 @@ public class processActivity extends Activity {
                         // Toast.makeText(this, "not 8,is 0", 1).show();
                     }
                 }
-                alignHeight.add(numBitmap1.getHeight());
                 alignHightVaule.add(num);
                 // tv_num.setVisibility(View.VISIBLE);
                 // if (num >= 10) {

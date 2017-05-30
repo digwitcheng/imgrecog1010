@@ -180,15 +180,19 @@ int recnum_jingsvm(int *ImageBuffer, int width, int height) {
     result = -1;
     CRect m_charRect;
     CRect charRect;//原字符包围框
-    memset(image, 255, 80 * 96 * sizeof(int));
+     memset(image, 255, 80 * 96 * sizeof(int));
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
             image[(i + 5) * 80 + j + 5] = 255 - ImageBuffer[i * width + j];
         }
     }
+    int tempWidth=width;
     width = 80;
     height = 96;
 
+//    for(int p=0;p<80*96;p++){
+//        image[p]=255;
+//    }
 //    for(i=0;i<96;i++)
 //    {
 //        for(j=0;j<80;j++)
@@ -236,6 +240,7 @@ int recnum_jingsvm(int *ImageBuffer, int width, int height) {
     feature5(image, charRect, m_charRect, height, width, fea);
 
     result = svm_recognition(fea, 80, model_p);
+
     if (result == 1) {
         if (fea[80] > 1.4)
             result = 7;
@@ -246,7 +251,7 @@ int recnum_jingsvm(int *ImageBuffer, int width, int height) {
         if ((double) (charRect.right - charRect.left - 1) / (charRect.bottom - charRect.top - 1) <
             0.4)
             result = 1;
-        else {
+      /*  else {//20170529hxc ImageBuffer越界，width已经不是原来的了
             j = 0;
             for (i = charRect.top; i < charRect.bottom; i++) {
                 if (ImageBuffer[i * width + charRect.right - 2] == 0)
@@ -255,7 +260,9 @@ int recnum_jingsvm(int *ImageBuffer, int width, int height) {
             if (charRect.bottom - charRect.top - j > 20)
                 result = 1;
         }
+        */
     }
+
     delete[]fea;
     return result;
 
