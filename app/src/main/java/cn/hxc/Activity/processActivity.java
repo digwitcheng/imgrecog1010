@@ -304,7 +304,7 @@ public class processActivity extends Activity {
         //确定识别框,恢复同一个字符上下断开的，不在中间线上的部分
         processUtil.PreRecoginzeRect(a, width, height);
         //去除非常高的连通元
-        processUtil.removeMaxNoise(a, width, height);
+        processUtil.removeMaxNoise(a);
 
         //再次确定识别框
         Rect recongizeRect= processUtil.RecoginzeRect(a,width,height);

@@ -93,6 +93,13 @@ public class RemoveNoise {
 
         return searchBorad(a);
     }
+
+    /**
+     * 把在方框内的连通元设为可
+     * @param a
+     * @param radio 连通元大于多少分之几在方框内设为可用
+     * @param rect
+     */
    void  setComTrue(int[]a,float radio,Rect rect){
         //把连通元高度三分之二在方框内的连通元设为可用
         for (int i = 0; i < count; i++) {
@@ -103,6 +110,7 @@ public class RemoveNoise {
         }
     }
     Rect searchBorad(int []a){
+        removeMaxNoise(a);
         int minx = Integer.MAX_VALUE;
         int miny = Integer.MAX_VALUE;
         int maxx = 0;
@@ -131,7 +139,7 @@ public class RemoveNoise {
 
     public void PreRecoginzeRect(int[] a, int width, int height) {
         //去除太高的噪音，避免下一步确定识别框时过大
-        //   removeMaxNoise(a, width, height);
+        removeMaxNoise(a);
 
         //寻找上下左右边界
         int minx = width;
@@ -163,13 +171,13 @@ public class RemoveNoise {
             }
         }
         //把连通元三分之一在方框内的连通元设为可用
-        setComTrue(a,1/3,searchBorad(a));
-//        for (int i = 0; i < count; i++) {
-//            int hei = (a[i * 7 + 4] - a[i * 7 + 3]) / 3;
-//            if (a[i * 7 + 4] > miny + hei && a[i * 7 + 3] < maxy - hei) {
-//                a[i * 7] = 0;
-//            }
-//        }
+//        setComTrue(a,2/3,searchBorad(a));
+        for (int i = 0; i < count; i++) {
+            int hei = (a[i * 7 + 4] - a[i * 7 + 3])*2 / 3;
+            if (a[i * 7 + 4] > miny + hei && a[i * 7 + 3] < maxy - hei) {
+                a[i * 7] = 0;
+            }
+        }
     }
 
 
@@ -177,10 +185,8 @@ public class RemoveNoise {
      * 移除比较大的或比较小的前景像素
      *
      * @param a      原图像
-     * @param width
-     * @param height
      */
-    public void removeMaxNoise(int[] a, int width, int height) {
+    public void removeMaxNoise(int[] a) {
         count = a.length / 7;
         avrageHeight = getAvrageHeight(a);
 
